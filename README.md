@@ -1,2 +1,6 @@
 # Machine-Learning
 Machine Learning Algorithm Implementations
+
+Decision Tree Implementation:
+IMPLEMENTATION OF DECISION TREE ALGORITHM, LEARN FROM DATA, PREDICT UNSEEN DNA SEQUENCES WHETHER THEY ARE PROMOTERS, NON –PROMOTERS.
+
