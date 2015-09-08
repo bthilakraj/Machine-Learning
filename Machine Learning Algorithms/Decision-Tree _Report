@@ -1,0 +1,204 @@
+IMPLEMENTATION OF DECISION TREE ALGORITHM, LEARN FROM DATA, PREDICT UNSEEN DNA SEQUENCES WHETHER THEY ARE PROMOTERS, NON –PROMOTERS.
+
+ID3 ALGORITHM:
+
+The basic idea of ID3 algorithm is to construct the decision tree by employing a top-down, greedy search through the given sets to test each attribute at every tree node. In order to select the attribute that is most useful for classifying a given sets, the metric of information gain. Root Node is the node which has the highest Information Gain and then iterating towards its possible values.
+
+Decision trees classify instances by traverse from root node to leaf node. We start from root node of decision tree, testing the attribute specified by this node, then moving down the tree branch according to the attribute value in the given set.
+
+Entropy Calculation:
+		Given a set S, lets assume without loss of generality, that the resulting decision tree classifies instances into two categories, we'll call them P(positive)and N(negative), the entropy of S related to this Boolean classification is:
+Entropy(S) = ∑ -p(I) log2 p(I)
+
+Information Gain:
+Gain(S, A) is information gain of example set S on attribute A is defined as
+Gain(S, A) = Entropy(S) - S ((|Sv| / |S|) * Entropy(Sv))
+
+	where Sv =subset of S for which attribute A has value v
+		|Sv|=number of elements in Sv.
+
+The calculation for information gain is the most difficult part of this algorithm. ID3 performs a search whereby the search states are decision trees and the operator involves adding a node to an existing tree. It uses information gain to measure the attribute to put in each node, and performs a greedy search using this measure of worth. 
+
+The algorithm goes as follows:
+Given a set of examples, S, categorised in categories ci, then:
+1. Choose the root node to be the attribute, A, which scores the highest for information gain relative to S.
+2. For each value v that A can possibly take, draw a branch from the node.
+3. For each branch from A corresponding to value v, calculate Sv. Then:
+•	If Sv is empty, choose the category cdefault which contains the most examples from S, and put this as the leaf node category which ends that branch.
+•	If Sv contains only examples from a category c, then put c as the leaf node category which ends that branch.
+•	Otherwise, remove A from the set of attributes which can be put into nodes. Then put a new node in the decision tree, where the new attribute being tested in the node is the one which scores highest for information gain relative to Sv (note: not relative to S). This new node starts the cycle again (from 2), with S replaced by Sv in the calculations and the tree gets built iteratively like this.
+The algorithm terminates either when all the attributes have been exhausted, or the decision tree perfectly classifies the examples.
+
+
+CODE DESCRIPTION:
+
+1.	From the text file I read the data into a structured format of Class Data which holds the DNA Sequence of Char[57] and Class type either Positive or negative.
+
+2.	Load the Chi SQuare values from the Property file for Confidence Percentage 0 ,95,99
+
+3.	Create an empty Parent Node of Node class
+
+4.	Pass the parent node, Chi square value and Array List of Data to construct Tree using Information Gain which construct the decision tree using the Entropy calculation and Information Gain.
+
+5.	In the construct Tree method using Information Gain using the Highest Information gain value set that node as the parent node and iterate towards the possible values of that node which is a,g,c,t.
+
+6.	Calculate the Chi Square Calculation and compare with the Confidence Level and Degree of Freedom=3 and take its respective value from the Chi Square table. And if its greater then only proceeds with that node else calculate the maximum number of Promoters or Non Promoters for that node and check which is greater and that is assigned as the leaf node.
+
+7.	Calculate the subset and then call the construct tree recursively.
+
+8.	Repeat steps of 4,5,6,7 for constructing tree using misclassification Impurity.
+
+9.	When all braches reach root then Tree is ready to traverse and check accuracy using Validation data and Training data.
+
+10.	Traverse through the constructed tree and check the number of classified and misclassified data and calculate the accuracy.
+
+
+RESULTS (MATRIX):
+
+
+ACCURACY PERCENTAGE:
+
+For Training dataset
+
+Impurity            	95%	0%	99%
+Entropy	              91.57	95.77	85.915
+Misclassification Impurity	88.73	90.14	88.73
+
+For Validation Dataset:
+
+Impurity            	95%	0%	99%
+Entropy	              85.71	88.657	85.714
+Misclassification Impurity	77.1	77.14	77.14
+
+
+ACKNOWLEDGEMENT:
+
+1. For coding I referred this example which gave me more clear idea
+http://www.cise.ufl.edu/~ddd/cap6635/Fall-97/Short-papers/2.htm
+http://afewguyscoding.com/2010/03/id3-decision-trees-java/
+2. For Documenting I referred 
+www.cs.sjsu.edu/faculty/lee/cs157b/Crawford_ID3_Presentation.ppt
+www.csse.monash.edu.au/.../decisiontreesTute.pdf
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.471.5158&rep=rep1&type=pdf
+
+
+APPENDIX:
+
+DECISION TREE IN JSON FORMAT:
+
+{
+  "node" : [ {
+    "node" : [ ],
+    "attributeNumber" : 16,
+    "attributeValue" : "a",
+    "classType" : "Non-Promoter"
+  }, {
+    "node" : [ {
+      "node" : [ {
+        "node" : [ ],
+        "attributeNumber" : 14,
+        "attributeValue" : "a",
+        "classType" : "Non-Promoter"
+      }, {
+        "node" : [ ],
+        "attributeNumber" : 14,
+        "attributeValue" : "g",
+        "classType" : "Promoter"
+      }, {
+        "node" : [ ],
+        "attributeNumber" : 14,
+        "attributeValue" : "c",
+        "classType" : "Non-Promoter"
+      }, {
+        "node" : [ ],
+        "attributeNumber" : 14,
+        "attributeValue" : "t",
+        "classType" : "Promoter"
+      } ],
+      "attributeNumber" : 38,
+      "attributeValue" : "a",
+      "classType" : "X"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 38,
+      "attributeValue" : "g",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 38,
+      "attributeValue" : "c",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 38,
+      "attributeValue" : "t",
+      "classType" : "Promoter"
+    } ],
+    "attributeNumber" : 16,
+    "attributeValue" : "g",
+    "classType" : "X"
+  }, {
+    "node" : [ {
+      "node" : [ ],
+      "attributeNumber" : 34,
+      "attributeValue" : "a",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 34,
+      "attributeValue" : "g",
+      "classType" : "Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 34,
+      "attributeValue" : "c",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 34,
+      "attributeValue" : "t",
+      "classType" : "Promoter"
+    } ],
+    "attributeNumber" : 16,
+    "attributeValue" : "c",
+    "classType" : "X"
+  }, {
+    "node" : [ {
+      "node" : [ ],
+      "attributeNumber" : 31,
+      "attributeValue" : "a",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 31,
+      "attributeValue" : "g",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 31,
+      "attributeValue" : "c",
+      "classType" : "Non-Promoter"
+    }, {
+      "node" : [ ],
+      "attributeNumber" : 31,
+      "attributeValue" : "t",
+      "classType" : "Promoter"
+    } ],
+    "attributeNumber" : 16,
+    "attributeValue" : "t",
+    "classType" : "X"
+  } ],
+  "attributeNumber" : -1,
+  "attributeValue" : "parentRoot",
+  "classType" : "X"
+}
+
+
+
+
+
+
+
+
+
+
